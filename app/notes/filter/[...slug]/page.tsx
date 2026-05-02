@@ -6,19 +6,36 @@ import {
 import { fetchNotes } from "@/lib/api";
 import NotesClient from "./Notes.client";
 import { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "Filtered Notes - NoteSpace",
-  description:
-    "View notes filtered by category. Browse, read and manage notes based on the selected tag.",
-  openGraph: {
-    title: "Filtered Notes - NoteSpace",
-    description:
-      "View notes filtered by category. Browse, read and manage notes based on the selected tag.",
-    url: "http://localhost:3000/notes/filter/all",
-    images: ["https://ac.goit.global/fullstack/react/notehub-og-meta.jpg"],
-  },
+type Props = {
+  params: { slug: string[] };
 };
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const slug = params.slug?.[0] || "all";
+
+  const title =
+    slug === "all" ? "All Notes – NoteSpace" : `${slug} Notes – NoteSpace`;
+
+  const description =
+    slug === "all"
+      ? "Browse all notes in NoteSpace."
+      : `Browse notes in the ${slug} category.`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `http://localhost:3000/notes/filter/${slug}`,
+      images: [
+        {
+          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        },
+      ],
+    },
+  };
+}
 export default async function NotesPage({
   params,
 }: {

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     title: "Page not found",
     description:
       "This page cannot be found. It is no longer available or supported within NoteSpace.",
-    url: "https://http://localhost:3000/not-found",
+    url: "https://localhost:3000/not-found",
     images: ["https://ac.goit.global/fullstack/react/notehub-og-meta.jpg"],
   },
 };

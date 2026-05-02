@@ -19,7 +19,12 @@ export const metadata: Metadata = {
     title: "NoteSpace",
     description:
       "A compact notes manager that lets you create, view and organize your notes with ease.",
-    images: ["https://ac.goit.global/fullstack/react/notehub-og-meta.jpg"],
+    url: "http://localhost:3000/",
+    images: [
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+      },
+    ],
   },
 };
 

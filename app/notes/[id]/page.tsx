@@ -5,12 +5,14 @@ import NoteDetailsClient from "./NoteDetails.client";
 import type { Metadata } from "next";
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = params;
+  const { id } = await params;
+
   const note = await fetchNoteById(id);
+
   return {
     title: `Note ${note.title}`,
     description: note.content.slice(0, 30),
@@ -18,7 +20,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `Note ${note.title}`,
       description: note.content,
       url: `https://your-page.com/notes/${id}`,
-      images: ["https://ac.goit.global/fullstack/react/notehub-og-meta.jpg"],
+      images: [
+        { url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg" },
+      ],
     },
   };
 }
