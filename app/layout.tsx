@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "NoteSpace",
     description:
       "A compact notes manager that lets you create, view and organize your notes with ease.",
-    url: "http://localhost:3000/",
+    url: "https://08-zustand-blush-three.vercel.app/",
     images: [
       {
         url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
@@ -36,7 +36,7 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${roboto.variable} ${roboto.variable}`}>
+    <html lang="en" className={`${roboto.variable}`}>
       <body>
         <Providers>
           <Header />

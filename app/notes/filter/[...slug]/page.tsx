@@ -7,20 +7,23 @@ import { fetchNotes } from "@/lib/api";
 import NotesClient from "./Notes.client";
 import { Metadata } from "next";
 type Props = {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const slug = params.slug?.[0] || "all";
+  const { slug } = await params;
+
+  const currentSlug = slug?.[0] || "all";
 
   const title =
-    slug === "all" ? "All Notes – NoteSpace" : `${slug} Notes – NoteSpace`;
+    currentSlug === "all"
+      ? "All Notes – NoteSpace"
+      : `${currentSlug} Notes – NoteSpace`;
 
   const description =
-    slug === "all"
+    currentSlug === "all"
       ? "Browse all notes in NoteSpace."
-      : `Browse notes in the ${slug} category.`;
-
+      : `Browse notes in the ${currentSlug} category.`;
   return {
     title,
     description,
