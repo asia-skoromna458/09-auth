@@ -1,17 +1,19 @@
-"use client";
-
-import { useRouter } from "next/navigation";
 import css from "./not-found.module.css";
-import { useEffect } from "react";
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "NotFound",
+  description:
+    "This page cannot be found. It is no longer available or supported within NoteSpace.",
+  openGraph: {
+    title: "Page not found",
+    description:
+      "This page cannot be found. It is no longer available or supported within NoteSpace.",
+    url: "https://http://localhost:3000/not-found",
+    images: ["https://ac.goit.global/fullstack/react/notehub-og-meta.jpg"],
+  },
+};
 
 export default function NotFound() {
-  const router = useRouter();
-
-  useEffect(() => {
-    const timer = setTimeout(() => router.push("/"), 3000);
-    return () => clearTimeout(timer);
-  }, [router]);
-
   return (
     <div>
       <h1 className={css.title}>404 - Page not found</h1>
