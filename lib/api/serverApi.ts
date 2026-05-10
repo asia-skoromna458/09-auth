@@ -42,7 +42,7 @@ export const checkSessionServer = async () => {
     headers: { Cookie: await getCookieHeader() },
   });
 
-  return res.data;
+  return res;
 };
 
 // SERVER: get current user
