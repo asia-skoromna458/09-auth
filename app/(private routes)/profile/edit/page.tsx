@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { updateUser } from "@/lib/api/serverApi";
 import css from "./EditProfilePage.module.css";
 import { useEffect, useState } from "react";
-import { User } from "@/types/note";
+import { User } from "@/types/user";
 import { getMe } from "@/lib/api/serverApi";
 export default function EditPage() {
   const router = useRouter();

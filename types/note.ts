@@ -10,8 +10,3 @@ export interface Note {
 export type NoteTag = "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
 
 
-export interface User{
-    email: string
-    username: string
-    avatar: string
-}

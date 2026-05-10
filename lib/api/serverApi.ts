@@ -1,6 +1,7 @@
 //серверні версії всіх запитів з кукі і фетч
 import { Api } from "./api";
-import type { Note, User } from "@/types/note";
+import type { Note } from "@/types/note";
+import type { User } from "@/types/user";
 
 export interface NoteResponse{
   totalPages: number

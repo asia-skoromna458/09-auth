@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import css from "./SingInPage.module.css";
 import { useState } from "react";
-import { login } from "@/lib/clientApi";
+import { login } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 
 export default function SingIn() {

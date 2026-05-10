@@ -4,7 +4,7 @@ import Image from "next/image";
 import css from "../ProfilePage.module.css";
 import { getMe } from "@/lib/api/serverApi";
 import { useEffect, useState } from "react";
-import type { User } from "@/types/note";
+import type { User } from "@/types/user";
 import Link from "next/link";
 
 export default function ProfileClient() {

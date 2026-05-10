@@ -1,6 +1,6 @@
 
-import type { Note, User } from "../types/note";
-import { Api } from "./api/api";
+import type { Note, User } from "../../types/note";
+import { Api } from "./api";
 
 
 

@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import css from "./SingUpPage.module.css";
-import { register } from "@/lib/clientApi";
+import { register } from "@/lib/api/clientApi";
 import { useState } from "react";
 import { useAuthStore } from "@/lib/store/authStore";
 
