@@ -4,7 +4,9 @@ import { User } from "@/types/note";
 type AuthStore = {
   isAuthenticated: boolean;
   user: User | null;
+
   setUser: (user: User) => void;
+  clearUser: () => void;                 // ← додано
   clearIsAuthenticated: () => void;
 };
 
@@ -18,10 +20,14 @@ export const useAuthStore = create<AuthStore>()((set) => ({
       isAuthenticated: true,
     })),
 
+  clearUser: () =>
+    set(() => ({
+      user: null,
+    })),
+
   clearIsAuthenticated: () =>
     set(() => ({
       user: null,
       isAuthenticated: false,
     })),
 }));
-    
