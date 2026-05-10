@@ -3,7 +3,7 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import { fetchNotes } from "@/lib/api/clientApi";
+import { fetchNotesServer } from "@/lib/api/serverApi";
 import NotesClient from "./Notes.client";
 import { Metadata } from "next";
 type Props = {
@@ -50,7 +50,12 @@ export default async function NotesPage({
 
   await queryClient.prefetchQuery({
     queryKey: ["notes", tag, 1],
-    queryFn: () => fetchNotes(1, 12, tag),
+    queryFn: () =>
+      fetchNotesServer({
+        page: 1,
+        perPage: 12,
+        tag,
+      }),
   });
 
   return (

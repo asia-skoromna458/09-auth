@@ -1,15 +1,20 @@
 "use client";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { updateUser, getMe } from "@/lib/api/clientApi";
 import css from "./EditProfilePage.module.css";
 import { useEffect, useState } from "react";
 import { User } from "@/types/user";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function EditPage() {
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const [user, setUser] = useState<User | null>(null);
   const [username, setUsername] = useState("");
+
   useEffect(() => {
     getMe().then((data) => {
       setUser(data);
@@ -20,18 +25,23 @@ export default function EditPage() {
   const updateValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
   };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    await updateUser({ username });
+    const updatedUser = await updateUser({ username });
+
+    queryClient.setQueryData(["me"], updatedUser);
 
     router.push("/profile");
   };
+
   const handleCancel = () => {
     router.push("/profile");
   };
 
   if (!user) return <p>Loading...</p>;
+
   return (
     <div className={css.mainContent}>
       <div className={css.profileCard}>
