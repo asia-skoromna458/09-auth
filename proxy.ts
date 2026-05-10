@@ -12,7 +12,11 @@ export async function proxy(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  const isPrivate = privateRoutes.some((route) => pathname.startsWith(route));
+  const isPrivate = privateRoutes.some(
+  (route) =>
+    pathname === route || pathname.startsWith(`${route}/`)
+);
+
   const isPublic = publicRoutes.includes(pathname);
 
 
