@@ -9,15 +9,7 @@ export interface NoteResponse{
   notes: Note[]
 
 }
-//DETAILS
-// //checkSession
-// type checkSessionRequest = {
-//   success: boolean
-// }
-// export const checkSession = async () => {
-//   const res = await Api.get<checkSessionRequest>('/auth/session')
-//   return res.data.success
-// }
+
 type checkSessionRequest = {
   success: boolean
 }
@@ -34,7 +26,7 @@ export const logout = async (): Promise<void> => {
 };
 
 export const updateUser = async (body:{username: string}) => {
-  const res = await Api.post<User>('/users/me', body)
+  const res = await Api.patch<User>('/users/me', body)
   return res.data
 }
 

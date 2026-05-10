@@ -55,13 +55,14 @@ export const getMeServer = async (): Promise<User> => {
 };
 
 // SERVER: update user
-export const updateUserServer = async (body: { username: string }): Promise<User> => {
+export const updateUserServer = async (body: { username: string }) => {
   const res = await Api.patch("/users/me", body, {
     headers: { Cookie: await getCookieHeader() },
   });
 
-  return res.data;
+  return res; 
 };
+
 
 // SERVER: logout
 export const logoutServer = async (): Promise<void> => {
