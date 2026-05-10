@@ -28,21 +28,21 @@ export async function proxy(request: NextRequest) {
       try {
         const session = await checkSessionServer();
 
-        if (!session?.success) {
+        if (!session.data?.success) {
           return NextResponse.redirect(new URL("/sign-in", request.url));
         }
 
         const response = NextResponse.next();
 
-        if (session.accessToken) {
-          response.cookies.set("accessToken", session.accessToken, {
+        if (session.data.accessToken) {
+          response.cookies.set("accessToken", session.data.accessToken, {
             httpOnly: true,
             path: "/",
           });
         }
 
-        if (session.refreshToken) {
-          response.cookies.set("refreshToken", session.refreshToken, {
+        if (session.data.refreshToken) {
+          response.cookies.set("refreshToken", session.data.refreshToken, {
             httpOnly: true,
             path: "/",
           });
