@@ -1,28 +1,24 @@
 import Image from "next/image";
 import css from "./ProfilePage.module.css";
+import { Metadata } from "next";
+import { getMe } from "@/lib/clientApi";
 
-// type Props = {
-//   params: Promise<{ id: string }>;
-// };
-// export async function generateMetadata({ params }: Props): Promise<Metadata> {
-//   //const { id } = await params;
-
-//   //const note = await fetchNoteById(id);
-
-//   return {
-//     title:
-//     description:
-//     openGraph: {
-//       title:
-//       description:
-//       url:
-//       images: [
-//         { url: ,
-//       ],
-//     },
-//   };
-// }
-export default function Profile() {
+export const metadata: Metadata = {
+  title: "Profile – NoteHub",
+  description: "User profile page with account information.",
+  openGraph: {
+    title: "Profile – NoteHub",
+    description: "User profile page with account information.",
+    url: "https://09-auth-wheat-gamma.vercel.app/profile",
+    images: [
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+      },
+    ],
+  },
+};
+export default async function Profile() {
+  //   const User = await getMe();
   return (
     <main className={css.mainContent}>
       <div className={css.profileCard}>
@@ -34,7 +30,7 @@ export default function Profile() {
         </div>
         <div className={css.avatarWrapper}>
           <Image
-            src="Avatar"
+            // src={User.avatar}
             alt="User Avatar"
             width={120}
             height={120}
@@ -42,8 +38,8 @@ export default function Profile() {
           />
         </div>
         <div className={css.profileInfo}>
-          <p>Username: your_username</p>
-          <p>Email: your_email@example.com</p>
+          {/* <p>Username: {User.username}</p> */}
+          {/* <p>Email: {User.email}</p> */}
         </div>
       </div>
     </main>
