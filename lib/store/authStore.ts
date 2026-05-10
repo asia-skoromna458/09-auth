@@ -6,8 +6,7 @@ type AuthStore = {
   user: User | null;
 
   setUser: (user: User) => void;
-  clearUser: () => void;                 // ← додано
-  clearIsAuthenticated: () => void;
+  clearAuth: () => void;
 };
 
 export const useAuthStore = create<AuthStore>()((set) => ({
@@ -20,12 +19,7 @@ export const useAuthStore = create<AuthStore>()((set) => ({
       isAuthenticated: true,
     })),
 
-  clearUser: () =>
-    set(() => ({
-      user: null,
-    })),
-
-  clearIsAuthenticated: () =>
+  clearAuth: () =>
     set(() => ({
       user: null,
       isAuthenticated: false,

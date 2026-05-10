@@ -2,20 +2,10 @@
 
 import Image from "next/image";
 import css from "../ProfilePage.module.css";
-import { getMe } from "@/lib/api/serverApi";
-import { useEffect, useState } from "react";
-import type { User } from "@/types/user";
 import Link from "next/link";
+import type { User } from "@/types/user";
 
-export default function ProfileClient() {
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    getMe().then(setUser);
-  }, []);
-
-  if (!user) return <p>Loading...</p>;
-
+export default function ProfileClient({ user }: { user: User }) {
   return (
     <div className={css.mainContent}>
       <div className={css.profileCard}>

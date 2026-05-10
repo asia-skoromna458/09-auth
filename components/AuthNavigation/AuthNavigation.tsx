@@ -3,25 +3,21 @@
 import Link from "next/link";
 import css from "./AuthNavigation.module.css";
 import { useAuthStore } from "@/lib/store/authStore";
-import { logout } from "@/lib/api/serverApi";
+import { logout } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 
 export default function AuthNavigation() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const user = useAuthStore((state) => state.user);
 
-  const clearUser = useAuthStore((state) => state.clearIsAuthenticated);
-  const clearIsAuthenticated = useAuthStore(
-    (state) => state.clearIsAuthenticated,
-  );
+  const clearAuth = useAuthStore((state) => state.clearAuth);
 
   const router = useRouter();
 
   const handleLogout = async () => {
-    await logout(); // API logout
-    clearUser(); // очищаємо user у Zustand
-    clearIsAuthenticated(); // isAuthenticated = false
-    router.push("/sign-in"); // редірект
+    await logout();
+    clearAuth();
+    router.push("/sign-in");
   };
 
   return (

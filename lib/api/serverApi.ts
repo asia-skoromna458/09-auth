@@ -1,57 +1,74 @@
-//серверні версії всіх запитів з кукі і фетч
 import { Api } from "./api";
+import { cookies } from "next/headers";
 import type { Note } from "@/types/note";
 import type { User } from "@/types/user";
 
-export interface NoteResponse{
-  totalPages: number
-  notes: Note[]
+const getCookieHeader = async () => {
+  const cookieStore = await cookies();
 
-}
-// GET
-export const fetchNotes = async (
-  page = 1,
-  perPage = 12,
-  search = "",
-  tag?: string
-) => {
-  const params: Record<string, string | number> = { page, perPage };
+  return cookieStore
+    .getAll()
+    .map(({ name, value }) => `${name}=${value}`)
+    .join("; ");
+};
 
-  if (search.trim() !== "") params.search = search;
-  if (tag && tag !== "all") params.tag = tag;
+// SERVER: fetch notes
+export const fetchNotesServer = async (params: {
+  page?: number;
+  perPage?: number;
+  search?: string;
+  tag?: string;
+}): Promise<{ totalPages: number; notes: Note[] }> => {
+  const res = await Api.get("/notes", {
+    params,
+    headers: { Cookie: await getCookieHeader() },
+  });
 
-  const res = await Api("/notes", { params });
   return res.data;
 };
 
-//DETAILS
+// SERVER: fetch note by id
+export const fetchNoteByIdServer = async (id: string): Promise<Note> => {
+  const res = await Api.get(`/notes/${id}`, {
+    headers: { Cookie: await getCookieHeader() },
+  });
 
-export const fetchNoteById = async (id: string): Promise<Note> => {
-  const res = await Api.get<Note>(`/notes/${id}`);
-  return res.data 
-}
-
-//checkSession
-type checkSessionRequest = {
-  success: boolean
-}
-export const checkSession = async () => {
-  const res = await Api.get<checkSessionRequest>('/auth/session')
-  return res.data.success
-}
-
-export const getMe = async () => {
-  const { data } = await Api.get<User>('/user/me')
-  return data
-}
-
-
-//logout
-export const logout = async (): Promise<void> => {
-  await Api.post('/auth/logout');
+  return res.data;
 };
 
-export const updateUser = async (body:{username: string}) => {
-  const res = await Api.post<User>('/user/me', body)
-  return res.data
-}
+// SERVER: check session
+export const checkSessionServer = async () => {
+  const res = await Api.get("/auth/session", {
+    headers: { Cookie: await getCookieHeader() },
+  });
+
+  return res.data;
+};
+
+// SERVER: get current user
+export const getMeServer = async (): Promise<User> => {
+  const res = await Api.get("/users/me", {
+    headers: { Cookie: await getCookieHeader() },
+  });
+
+  return res.data;
+};
+
+// SERVER: update user
+export const updateUserServer = async (body: { username: string }): Promise<User> => {
+  const res = await Api.patch("/users/me", body, {
+    headers: { Cookie: await getCookieHeader() },
+  });
+
+  return res.data;
+};
+
+// SERVER: logout
+export const logoutServer = async (): Promise<void> => {
+  await Api.post("/auth/logout", null, {
+    headers: { Cookie: await getCookieHeader() },
+  });
+};
+
+
+

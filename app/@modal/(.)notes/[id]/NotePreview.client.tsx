@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import css from "./NotePreview.client.module.css";
 import { useQuery } from "@tanstack/react-query";
-import { fetchNoteById } from "@/lib/api/serverApi";
+import { fetchNoteById } from "@/lib/api/clientApi";
 import Modal from "@/components/Modal/Modal";
 
 type Props = {

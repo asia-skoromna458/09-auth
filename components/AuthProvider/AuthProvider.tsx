@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { checkSession, getMe, logout } from "@/lib/api/serverApi";
+import { checkSession, getMe, logout } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 
 const PUBLIC_ROUTES = ["/sign-in", "/sign-up"];
@@ -16,8 +16,7 @@ export default function AuthProvider({ children }: Props) {
   const [loading, setLoading] = useState(true);
 
   const setUser = useAuthStore((state) => state.setUser);
-  const clearUser = useAuthStore((state) => state.clearUser);
-  const clearIsAuthed = useAuthStore((state) => state.clearIsAuthenticated);
+  const clearAuth = useAuthStore((state) => state.clearAuth);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -34,8 +33,7 @@ export default function AuthProvider({ children }: Props) {
           router.replace("/profile");
         }
       } else {
-        clearUser();
-        clearIsAuthed();
+        clearAuth();
 
         if (PRIVATE_ROUTES.includes(pathname)) {
           await logout();
@@ -48,7 +46,8 @@ export default function AuthProvider({ children }: Props) {
     };
 
     verify();
-  }, [pathname, router, setUser, clearUser, clearIsAuthed]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   if (loading) return <div>Loading...</div>;
 
